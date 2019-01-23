@@ -1,0 +1,8 @@
+package com.example.user.model;
+
+public class Role {
+	
+	private Integer id;
+	private String role;
+
+}

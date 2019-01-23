@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/rcon
+    username: root
+    password: jiyodigital
+    driver-class-name: com.mysql.jdbc.Driver

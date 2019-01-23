@@ -1,0 +1,12 @@
+server:
+  port: 8084
+  
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/rcon
+    data-username: root
+    data-password: jiyodigital
+    dbcp2:
+      driver-class-name: com.mysql.jdbc.Driver

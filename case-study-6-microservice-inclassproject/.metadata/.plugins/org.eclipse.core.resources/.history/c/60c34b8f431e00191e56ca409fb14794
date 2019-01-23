@@ -1,0 +1,6 @@
+package com.example.user.repository;
+
+
+@Repository
+public interface UserAccountRepository extends MongoRepository<UserAccount, Long> {
+}

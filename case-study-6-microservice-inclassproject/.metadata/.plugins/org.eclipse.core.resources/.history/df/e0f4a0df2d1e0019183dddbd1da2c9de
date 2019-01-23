@@ -1,0 +1,117 @@
+package com.example.user.service;
+
+import com.example.user.dto.UserAccountDTO;
+import com.example.user.model.UserAccount;
+import com.example.user.repository.UserAccountRepository;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class ProductService {
+
+    @Autowired
+    UserAccountRepository productRepository;
+
+    @Autowired
+    ModelMapper modelMapper;
+
+    public UserAccountDTO getProductById(Long id){
+        Optional<UserAccount> optionalProduct = productRepository.findById(id);
+        if(optionalProduct.isPresent()){
+            System.out.println("found some product in service");
+            UserAccount product = optionalProduct.get();
+            return modelMapper.map(product, UserAccountDTO.class);
+        }
+        else{
+            System.out.println("product not found in service");
+            return null;
+        }
+    }
+
+    public UserAccountDTO getProductByName(String name){
+        Optional<UserAccount> optionalProduct = productRepository.findByName(name);
+        if(optionalProduct.isPresent()){
+            System.out.println("found product");
+            return modelMapper.map(optionalProduct.get(), UserAccountDTO.class);
+        }
+        else{
+            System.out.println("product not found");
+            return null;
+        }
+    }
+
+    public List<UserAccountDTO> getProductByCategory(String category, int page, int limit){
+        List<UserAccountDTO> productDTOS = new ArrayList<>();
+        List<UserAccount> products = productRepository.findByCategory(category, new PageRequest(page, limit, Sort.Direction.ASC, "name"));
+
+        if(products != null){
+            System.out.println("found products by category");
+            for(UserAccount product : products){
+                productDTOS.add(modelMapper.map(product, UserAccountDTO.class));
+            }
+            return productDTOS;
+        }
+        else{
+            System.out.println("products by category not found");
+            return null;
+        }
+    }
+
+    public List<UserAccountDTO> getProductByBrand(String brand, int page, int limit){
+        List<UserAccountDTO> productDTOS = new ArrayList<>();
+        List<UserAccount> products = productRepository.findByBrand(brand, new PageRequest(page, limit, Sort.Direction.ASC, "name"));
+        for(UserAccount product : products){
+            productDTOS.add(modelMapper.map(product, UserAccountDTO.class));
+        }
+        return productDTOS;
+    }
+
+    public void addProduct(UserAccountDTO productDTO){
+        UserAccount product = UserAccount.builder()
+                .name(productDTO.getName())
+                .brand(productDTO.getBrand())
+                .description(productDTO.getDescription())
+                .color(productDTO.getColor())
+                .category(productDTO.getCategory())
+                .createDate(new Date())
+                .modifiedDate(new Date())
+                .build();
+        productRepository.save(product);
+    }
+
+    public boolean updateProduct(UserAccountDTO productDTO){
+        Optional<UserAccount> savedProduct = productRepository.findById(productDTO.getId());
+        if(savedProduct != null){
+            System.out.println("found product to be updated");
+            UserAccount product = savedProduct.get();
+            product.setName(productDTO.getName());
+            product.setBrand(productDTO.getBrand());
+            product.setCategory(productDTO.getCategory());
+            product.setColor(productDTO.getColor());
+            product.setModifiedDate(new Date());
+            product.setDescription(productDTO.getDescription());
+            productRepository.save(product);
+            return true;
+        }
+        else{
+            System.out.println("product not found to be updated");
+            return false;
+        }
+    }
+
+    public void deleteProduct(Long id){
+        Optional<UserAccount> optionalProduct = productRepository.findById(id);
+        if(optionalProduct != null){
+            productRepository.deleteById(id);
+        }
+    }
+}

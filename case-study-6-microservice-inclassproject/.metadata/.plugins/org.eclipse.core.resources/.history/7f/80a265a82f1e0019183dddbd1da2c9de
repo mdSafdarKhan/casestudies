@@ -1,0 +1,36 @@
+package com.example.user.controller;
+
+import com.example.user.dto.UserAccountDTO;
+import com.example.user.service.UserAccountService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+
+@RestController
+@RequestMapping("api/user")
+public class UserController {
+
+    @Autowired
+    UserAccountService userAccountService;
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> addProduct(@RequestBody @Valid UserAccountDTO productDTO){
+        productService.addProduct(productDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    
+    @GetMapping("productId/{id}")
+    public ResponseEntity<UserAccountDTO> getProductById(@PathVariable("id") Long id){
+        UserAccountDTO productDTO = productService.getProductById(id);
+        if(productDTO != null){
+            return new ResponseEntity<UserAccountDTO>(productDTO, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}

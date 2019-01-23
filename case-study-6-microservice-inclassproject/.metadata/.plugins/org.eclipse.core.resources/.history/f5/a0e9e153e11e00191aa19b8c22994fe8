@@ -1,0 +1,13 @@
+package com.example.user.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="role", catalog="rcon")
+public class Role {
+	
+	private Integer id;
+	private String role;
+
+}
