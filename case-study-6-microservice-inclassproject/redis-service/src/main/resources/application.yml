@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: redis-service
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
+  datasource:
+    url: jdbc:mysql://localhost:3306/learning
+    username: root
+    password: jiyodigital
+    driver-class-name: com.mysql.jdbc.Driver 
+  jpa:
+    show-sql: true

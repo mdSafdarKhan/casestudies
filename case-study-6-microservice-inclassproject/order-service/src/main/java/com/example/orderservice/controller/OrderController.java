@@ -2,6 +2,9 @@ package com.example.orderservice.controller;
 
 import com.example.orderservice.dto.OrderDTO;
 import com.example.orderservice.service.OrderService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +17,8 @@ import javax.validation.Valid;
 @RequestMapping("api/order")
 public class OrderController {
 
+	private static final Logger log = LoggerFactory.getLogger(OrderController.class);
+	
     @Autowired
     OrderService orderService;
 
@@ -28,6 +33,7 @@ public class OrderController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createOrder(@RequestBody OrderDTO orderDTO){
+    	log.info("inside createOrder");
         orderService.createOrder(orderDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

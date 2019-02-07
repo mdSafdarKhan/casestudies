@@ -1,0 +1,36 @@
+
+@CacheConfig — you can define some of the cache configuration in one place — at the class level — so that you won’t need to declare stuff several times.
+@Cacheable — when method annotated with this annotation, it will be executed only once for the given cachekey, until the cache expires or gets cleared.
+ 
+Alright! This is good. But not enough. 
+Imagine that some user got update, for example username of first user changed from “user_1” to “user_super_1”. 
+And since method findAll() marked as cacheable, it won’t be executed, 
+and we will get back old data from cache all the time. And this is definitely not something that we want.
+So basically, whenever something changes(update, save requests) — we need to properly update our cache.
+
+Let’s see how that is possible. For instance, I’ll add some method that will change first user in array.
+
+@CachePut — always lets the method execute. It is used to update the cache with the result of the method execution
+
+So, when we update the first user, 
+and the appropriate method annotated with @CachePut annotation — 
+it will update the cache itself, and the request to findAll() will return us recently updated data. 
+Again, it will be executed very and very fast.
+ 
+And also there is one more interesting part left:
+
+@CacheEvict — removes data from from the cache. You can use in different ways:
+
+if you want to flush all the cache
+
+@CacheEvict(allEntries = true) 
+
+Or remove item by key
+
+@CacheEvict(key = "#user.username")
+
+This way you won’t keep data in the cache, that you won’t need to use anymore.
+
+This is basically how Spring Cache can help you in solving performance issue during you development process. 
+But keep in mind not to use caching where it’s not needed. 
+Be wise!

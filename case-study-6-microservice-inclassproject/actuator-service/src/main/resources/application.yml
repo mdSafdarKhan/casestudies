@@ -1,0 +1,8 @@
+info:
+  app:
+    name: actuator-service
+    desc: testing actuator info end point
+    
+management:
+  security:
+    enabled: false

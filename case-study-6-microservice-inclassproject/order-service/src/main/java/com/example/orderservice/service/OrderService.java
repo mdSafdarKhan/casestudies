@@ -6,6 +6,8 @@ import com.example.orderservice.exception.OrderNotCreatedException;
 import com.example.orderservice.model.Order;
 import com.example.orderservice.repository.OrderRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ import java.util.Optional;
 @Service
 public class OrderService {
 
+	private static final Logger log = LoggerFactory.getLogger(OrderService.class);
+	
     @Autowired
     OrderRepository orderRepository;
 
@@ -29,7 +33,7 @@ public class OrderService {
     RestTemplate restTemplate;
 
     public Order createOrder(OrderDTO orderDTO){
-
+    	log.info("inside createOrder");
         //TODO We must be having timeout
         //TODO Circuit breaking
 

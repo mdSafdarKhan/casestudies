@@ -6,6 +6,9 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="/home/safdar/workspace/springboot/case-studies/case-study-6-microservice-inclassproject/spring-security-db-example-master"/>
+			<item value="/home/safdar/workspace/springboot/case-studies/case-study-6-microservice-inclassproject/spring-security-jpa-master"/>
+			<item value="/home/safdar/workspace/springboot/case-studies/case-study-6-microservice-inclassproject/springboot-security-mysql-master"/>
 			<item value="/home/safdar/workspace/springboot/case-studies/case-study-6-microservice-inclassproject/store-service"/>
 			<item value="/home/safdar/workspace/springboot/case-studies/case-study-6-microservice-inclassproject/product-service"/>
 			<item value="/home/safdar/workspace/springboot/case-studies/case-study-6-microservice-inclassproject/order-service"/>

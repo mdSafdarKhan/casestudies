@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/user_local
+    username: root
+    password: jiyodigital
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+  profiles:
+    active: local

@@ -3,6 +3,9 @@ package com.example.product.controller;
 import com.example.product.dto.ProductDTO;
 import com.example.product.model.Product;
 import com.example.product.service.ProductService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,11 +20,14 @@ import java.util.Optional;
 @RequestMapping("api/product")
 public class ProductController {
 
+	private static final Logger log = LoggerFactory.getLogger(ProductController.class);
+	
     @Autowired
     ProductService productService;
 
     @GetMapping("productId/{id}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable("id") Long id){
+    	log.info("inside getProductById");
         ProductDTO productDTO = productService.getProductById(id);
         if(productDTO != null){
             return new ResponseEntity<ProductDTO>(productDTO, HttpStatus.OK);
